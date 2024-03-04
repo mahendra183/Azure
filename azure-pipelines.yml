@@ -1,29 +1,44 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
-- master
+- main
 
-jobs:
-- job: Windows
-  pool:
-    vmImage: 'windows-2019'
-  steps:
-  - task: DotNetCoreInstaller@0
-    inputs:
-      packageType: 'sdk'
-      version: '2.2.401'
-  - script: dotnet build ./SimplCommerce.sln
-    displayName: 'dotnet build'
-  - task: PowerShell@2
-    inputs:
-      filePath: .\run-tests.ps1
-    displayName: 'run tests'
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results **/*.trx'
-    condition: succeededOrFailed()
-    inputs:
-      testResultsFormat: VSTest
-      testResultsFiles: '**/*.trx' 
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+- name: globalVarible
+  value: "this is root level variable"
+- name: overrideGlobalVariable
+  value: "Root"
+- name: overrideGlobalandStageVariable
+  value: "Global"
+
+stages:
+- stage: 
+  displayName: "Stage 1"
+  variables:
+    stageVariable: "This is Stage 1 level variable"
+    overrideGlobalVariable: "Stage 1"
+    overrideGlobalandStageVariable: "Stage 1"
+
+  jobs:
+  - job: BuildAndTest
+    variables: 
+     - name: jobVarible
+       value: "This is job level variable in stage 1"
+     - name: sameNameVariable
+       value: "This is overrides pipeline variable"
+     - name: overrideGlobalandStageVariable
+       value: "job"
+
+    steps:
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: 
+          echo ${{varibles.sameNameVarible }}
+          echo "Globa Varible :" $(globalVarible)
+          echo "stageVariable :" $(stageVarible) 
+          echo "jobVariable :" $(jobVariable)
+          echo "jobVariable :" $(overrideGlobalVariable)
+          echo "jobVariable :" $(overrideGlobalandStageVariable)
+          echo "pipelineVariable :" $(sameNameVarible)
