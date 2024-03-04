@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-- name: globalVarible
+- name: globalVariable
   value: "this is root level variable"
 - name: overrideGlobalVariable
   value: "Root"
@@ -35,9 +35,9 @@ stages:
       inputs:
         targetType: 'inline'
         script: 
-          echo ${{ variables.sameNameVarible }}
-          echo "Globa Varible :" $(globalVarible)
-          echo "stageVariable :" $(stageVarible) 
+          echo ${{ variables.sameNameVariable }}
+          echo "Globa Varible :" $(globalVariable)
+          echo "stageVariable :" $(stageVariable) 
           echo "jobVariable :" $(jobVariable)
           echo "jobVariable :" $(overrideGlobalVariable)
           echo "jobVariable :" $(overrideGlobalandStageVariable)
