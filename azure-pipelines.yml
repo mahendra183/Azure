@@ -23,10 +23,8 @@ stages:
   jobs:
   - job: BuildAndTest
     variables: 
-     - name: jobVarible
+     - name: jobVariable
        value: "This is job level variable in stage 1"
-     - name: sameNameVariable
-       value: "This is overrides pipeline variable"
      - name: overrideGlobalandStageVariable
        value: "job"
 
@@ -36,9 +34,9 @@ stages:
         targetType: 'inline'
         script: 
           echo ${{ variables.sameNameVariable }}
-          echo "Globa Varible :" $(globalVariable)
+          echo "Globa Variable :" $(globalVariable)
           echo "stageVariable :" $(stageVariable) 
           echo "jobVariable :" $(jobVariable)
           echo "jobVariable :" $(overrideGlobalVariable)
           echo "jobVariable :" $(overrideGlobalandStageVariable)
-          echo "pipelineVariable :" $(sameNameVarible)
+
