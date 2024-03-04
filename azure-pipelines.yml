@@ -33,8 +33,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: 
-          echo ${{ variables.sameNameVariable }}
-          echo "Globa Variable :" $(globalVariable)
+          echo "GlobaVariable :" $(globalVariable)
           echo "stageVariable :" $(stageVariable) 
           echo "jobVariable :" $(jobVariable)
           echo "jobVariable :" $(overrideGlobalVariable)
