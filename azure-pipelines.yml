@@ -2,7 +2,8 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: newselfagent
+  vmImage: windows-latest
 
 variables:
 - name: globalVariable
